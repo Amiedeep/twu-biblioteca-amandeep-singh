@@ -60,11 +60,16 @@ public class BibliotecaApp {
     private void getAndPrintUserSelectedOption() {
 
         sc = new Scanner(System.in);
-        int optionNumber = sc.nextInt();
-        switch(optionNumber) {
-            case 1 :
-                printBooks();
-                break;
+        outer: while(true) {
+            int optionNumber = sc.nextInt();
+            switch(optionNumber) {
+                case 1 :
+                    printBooks();
+                    break outer;
+                default :
+                    System.out.println("Please Enter Valid Option!");
+            }
         }
+
     }
 }
