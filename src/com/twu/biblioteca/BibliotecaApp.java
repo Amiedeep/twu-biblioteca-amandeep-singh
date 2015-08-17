@@ -71,7 +71,7 @@ public class BibliotecaApp {
                 case 3:
                     System.out.println("Enter book name to return");
                     String bookNameToReturn = getBookNameToReturn();
-                    returnBook(bookNameToReturn);
+                    System.out.println(returnBook(bookNameToReturn));
                     printOptions();
                     break;
                 case 4:
@@ -85,12 +85,14 @@ public class BibliotecaApp {
 
     }
 
-    public void returnBook(String bookNameToreturn) {
+    public String returnBook(String bookNameToreturn) {
         for(Book book : books) {
             if(book.getName().equals(bookNameToreturn) && !book.isAvailable()) {
                 book.setAvailable(true);
+                return "Thank you for returning the book.";
             }
         }
+        return "";
     }
 
     public String checkOutBook(String bookToCheckOut) {

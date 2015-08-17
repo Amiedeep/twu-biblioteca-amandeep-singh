@@ -63,7 +63,7 @@ public class ExampleTest {
     public void returnBookTest() {
         String bookToReturn = testObject.books.get(0).getName();
         testObject.checkOutBook(bookToReturn);
-        testObject.returnBook(bookToReturn);
+        assertThat(testObject.returnBook(bookToReturn), is("Thank you for returning the book."));
         assertThat(testObject.books.get(0).isAvailable(), is(true));
     }
 }
