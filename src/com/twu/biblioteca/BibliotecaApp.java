@@ -92,7 +92,7 @@ public class BibliotecaApp {
                 return "Thank you for returning the book.";
             }
         }
-        return "";
+        return "That is not a valid book to return.";
     }
 
     public String checkOutBook(String bookToCheckOut) {
