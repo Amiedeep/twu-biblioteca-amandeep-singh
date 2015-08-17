@@ -65,7 +65,7 @@ public class BibliotecaApp {
                 case 2:
                     System.out.println("Enter book name to checkout");
                     String bookToCheckOut= getBookNameToCheckout();
-                    checkOutBook(bookToCheckOut);
+                    System.out.println(checkOutBook(bookToCheckOut));
                     printOptions();
                     break;
                 case 3:
@@ -79,12 +79,14 @@ public class BibliotecaApp {
 
     }
 
-    public void checkOutBook(String bookToCheckOut) {
+    public String checkOutBook(String bookToCheckOut) {
         for(Book book : books) {
             if(book.getName().equals(bookToCheckOut)) {
                 books.remove(book);
+                return "Thank you! Enjoy the book";
             }
         }
+        return "";
     }
 
     public String getBookNameToCheckout() {

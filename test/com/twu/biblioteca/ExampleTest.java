@@ -51,7 +51,9 @@ public class ExampleTest {
 
     @Test
     public void checkOutBookTest() {
-        testObject.checkOutBook("scjp");
+        assertThat(testObject.checkOutBook("Some invalid book") , is(""));
+        assertThat(testObject.books.size(), is(2));
+        assertThat(testObject.checkOutBook("scjp") , is("Thank you! Enjoy the book"));
         assertThat(testObject.books.size(), is(1));
     }
 }
