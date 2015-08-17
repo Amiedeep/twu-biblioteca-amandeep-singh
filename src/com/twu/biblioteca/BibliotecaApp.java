@@ -25,16 +25,11 @@ public class BibliotecaApp {
     }
 
     public void initialiseOptions() {
-
-        int index = 1;
         options = new ArrayList<String>();
         options.add("List Books");
+        options.add("Check Out Book");
         options.add("Quit");
-        System.out.println("Please select a option to proceed");
-        for(String option : options) {
-            System.out.println(index+": "+option);
-            index++;
-        }
+        printOptions();
     }
 
     public static void main(String[] args) {
@@ -64,15 +59,45 @@ public class BibliotecaApp {
         outer: while(true) {
             int optionNumber = sc.nextInt();
             switch(optionNumber) {
-                case 1 :
+                case 1:
                     printBooks();
                     break;
                 case 2:
+                    System.out.println("Enter book name to checkout");
+                    String bookToCheckOut= getBookNameToCheckout();
+                    checkOutBook(bookToCheckOut);
+                    printOptions();
+                    break;
+                case 3:
                     break outer;
-                default :
+                default:
                     System.out.println("Please Enter Valid Option!");
+                    printOptions();
+                    break;
             }
         }
 
+    }
+
+    public void checkOutBook(String bookToCheckOut) {
+        for(Book book : books) {
+            if(book.getName().equals(bookToCheckOut)) {
+                books.remove(book);
+            }
+        }
+    }
+
+    public String getBookNameToCheckout() {
+
+        return sc.next();
+    }
+
+    private void printOptions() {
+        int index = 1;
+        System.out.println("\nPlease select a option to proceed");
+        for(String option : options) {
+            System.out.println(index+": "+option);
+            index++;
+        }
     }
 }
