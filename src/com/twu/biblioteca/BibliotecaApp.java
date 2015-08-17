@@ -27,6 +27,7 @@ public class BibliotecaApp {
         options = new ArrayList<String>();
         options.add("List Books");
         options.add("Check Out Book");
+        options.add("Return Book");
         options.add("Quit");
         printOptions();
     }
@@ -63,11 +64,17 @@ public class BibliotecaApp {
                     break;
                 case 2:
                     System.out.println("Enter book name to checkout");
-                    String bookToCheckOut= getBookNameToCheckout();
-                    System.out.println(checkOutBook(bookToCheckOut));
+                    String bookNameToCheckout= getBookNameToCheckout();
+                    System.out.println(checkOutBook(bookNameToCheckout));
                     printOptions();
                     break;
                 case 3:
+                    System.out.println("Enter book name to return");
+                    String bookNameToReturn = getBookNameToReturn();
+                    returnBook(bookNameToReturn);
+                    printOptions();
+                    break;
+                case 4:
                     break outer;
                 default:
                     System.out.println("Please Enter Valid Option!");
@@ -76,6 +83,14 @@ public class BibliotecaApp {
             }
         }
 
+    }
+
+    public void returnBook(String bookNameToreturn) {
+        for(Book book : books) {
+            if(book.getName().equals(bookNameToreturn) && !book.isAvailable()) {
+                book.setAvailable(true);
+            }
+        }
     }
 
     public String checkOutBook(String bookToCheckOut) {
@@ -88,7 +103,7 @@ public class BibliotecaApp {
         return "That book is not available.";
     }
 
-    public String getBookNameToCheckout() {
+    private String getBookNameToCheckout() {
 
         return sc.next();
     }
@@ -100,5 +115,9 @@ public class BibliotecaApp {
             System.out.println(index+": "+option);
             index++;
         }
+    }
+
+    private String getBookNameToReturn() {
+        return sc.next();
     }
 }
