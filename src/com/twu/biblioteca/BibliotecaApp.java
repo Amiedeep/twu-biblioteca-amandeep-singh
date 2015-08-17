@@ -29,6 +29,7 @@ public class BibliotecaApp {
         int index = 1;
         options = new ArrayList<String>();
         options.add("List Books");
+        options.add("Quit");
         System.out.println("Please select a option to proceed");
         for(String option : options) {
             System.out.println(index+": "+option);
@@ -65,6 +66,8 @@ public class BibliotecaApp {
             switch(optionNumber) {
                 case 1 :
                     printBooks();
+                    break;
+                case 2:
                     break outer;
                 default :
                     System.out.println("Please Enter Valid Option!");

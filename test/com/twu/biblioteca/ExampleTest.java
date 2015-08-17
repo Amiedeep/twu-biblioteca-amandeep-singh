@@ -43,7 +43,8 @@ public class ExampleTest {
 
     @Test
     public void initializeOptionsTest() {
-        assertThat(testObject.options.size(), is(1));
+        assertThat(testObject.options.size(), is(2));
         assertThat(testObject.options.get(0), is("List Books"));
+        assertThat(testObject.options.get(1), is("Quit"));
     }
 }
