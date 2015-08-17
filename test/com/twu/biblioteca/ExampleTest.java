@@ -28,9 +28,16 @@ public class ExampleTest {
 
     @Test
     public void getBooksTest() {
-        List<String> books = new ArrayList<String>();
-        books.add("Head First Java");
-        books.add("scjp");
-        assertThat(testObject.getBooks(), is(books));
+        ArrayList<Book> books = new ArrayList<Book>();
+        books.add(new Book("scjp", "kathy sierra", 2000));
+        books.add(new Book("Head First Java", "Bert Bates", 2003));
+        testObject.initialiseBooks();
+        assertThat(testObject.books.size(), is(2));
+        assertThat(testObject.books.get(0).getAuthor(), is("kathy sierra"));
+        assertThat(testObject.books.get(1).getAuthor(), is("Bert Bates"));
+        assertThat(testObject.books.get(0).getYearOfPublication(), is(2000));
+        assertThat(testObject.books.get(1).getYearOfPublication(), is(2003));
+        assertThat(testObject.books.get(0).getName(), is("scjp"));
+        assertThat(testObject.books.get(1).getName(), is("Head First Java"));
     }
 }
