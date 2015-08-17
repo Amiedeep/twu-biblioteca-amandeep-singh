@@ -1,7 +1,6 @@
 package com.twu.biblioteca;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class BibliotecaApp {
@@ -81,8 +80,8 @@ public class BibliotecaApp {
 
     public String checkOutBook(String bookToCheckOut) {
         for(Book book : books) {
-            if(book.getName().equals(bookToCheckOut)) {
-                books.remove(book);
+            if(book.getName().equals(bookToCheckOut) && book.isAvailable()) {
+                book.setAvailable(false);
                 return "Thank you! Enjoy the book";
             }
         }

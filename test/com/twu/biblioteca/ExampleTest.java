@@ -52,8 +52,11 @@ public class ExampleTest {
     @Test
     public void checkOutBookTest() {
         assertThat(testObject.checkOutBook("Some invalid book") , is("That book is not available."));
-        assertThat(testObject.books.size(), is(2));
-        assertThat(testObject.checkOutBook("scjp") , is("Thank you! Enjoy the book"));
-        assertThat(testObject.books.size(), is(1));
+        assertThat(testObject.books.get(0).isAvailable(), is(true));
+        String bookToCheckout = testObject.books.get(0).getName();
+        assertThat(testObject.checkOutBook(bookToCheckout) , is("Thank you! Enjoy the book"));
+        assertThat(testObject.books.get(0).isAvailable(), is(false));
+
+
     }
 }
