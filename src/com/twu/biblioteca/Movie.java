@@ -5,16 +5,23 @@ package com.twu.biblioteca;
  */
 public class Movie {
     private String name;
-    private String Year;
+    private int year;
     private float rating;
     private String director;
+
+    public Movie(String name, int year, String director, float rating) {
+        this.name = name;
+        this.year = year;
+        this.director = director;
+        this.rating = rating;
+    }
 
     public String getName() {
         return name;
     }
 
-    public String getYear() {
-        return Year;
+    public int getYear() {
+        return year;
     }
 
     public String getDirector() {

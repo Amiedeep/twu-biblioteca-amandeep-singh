@@ -6,14 +6,16 @@ import java.util.Scanner;
 public class BibliotecaApp {
 
     String welcomeMessage;
-    ArrayList<Book> books;
-    ArrayList<String> options;
-    Scanner sc;
+    public ArrayList<Book> books;
+    public ArrayList<String> options;
+    private Scanner sc;
+    public ArrayList<Movie> movies;
 
     public BibliotecaApp() {
         this.welcomeMessage = "Welcome to Bibliotecs App!";
         printWelcomeMessage();
         initialiseBooks();
+        initialiseMovies();
         initialiseOptions();
     }
 
@@ -23,11 +25,18 @@ public class BibliotecaApp {
         books.add(new Book("Head First Java", "Bert Bates", 2003));
     }
 
+    public void initialiseMovies() {
+        movies = new ArrayList<Movie>();
+        movies.add(new Movie("Sholay", 2000, "Some One", 7.5f));
+        movies.add(new Movie("Gadar", 2001, "Some One again", 9.5f));
+    }
+
     public void initialiseOptions() {
         options = new ArrayList<String>();
         options.add("List Books");
         options.add("Check Out Book");
         options.add("Return Book");
+        options.add("List Movies");
         options.add("Quit");
         printOptions();
     }
@@ -53,6 +62,14 @@ public class BibliotecaApp {
         }
     }
 
+    private void printMovies() {
+        System.out.println("\nMovies available in library are:");
+        System.out.printf("%-40s %-40s %-40s %-40s\n", "Name", "Year", "Director", "Rating");
+        for(Movie movie : movies) {
+            System.out.printf("%-40s %-40s %-40s %-40s\n", movie.getName(), movie.getYear(), movie.getDirector(), movie.getRating());
+        }
+    }
+
     private void getAndPrintUserSelectedOption() {
 
         sc = new Scanner(System.in);
@@ -75,6 +92,9 @@ public class BibliotecaApp {
                     printOptions();
                     break;
                 case 4:
+                    printMovies();
+                    break;
+                case 5:
                     break outer;
                 default:
                     System.out.println("Please Enter Valid Option!");

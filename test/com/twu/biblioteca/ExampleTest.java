@@ -28,9 +28,6 @@ public class ExampleTest {
 
     @Test
     public void initializeBooksTest() {
-        ArrayList<Book> books = new ArrayList<Book>();
-        books.add(new Book("scjp", "kathy sierra", 2000));
-        books.add(new Book("Head First Java", "Bert Bates", 2003));
         testObject.initialiseBooks();
         assertThat(testObject.books.size(), is(2));
         assertThat(testObject.books.get(0).getAuthor(), is("kathy sierra"));
@@ -42,12 +39,27 @@ public class ExampleTest {
     }
 
     @Test
+    public void initializeMoviesTest() {
+        testObject.initialiseMovies();
+        assertThat(testObject.movies.size(), is(2));
+        assertThat(testObject.movies.get(0).getName(), is("Sholay"));
+        assertThat(testObject.movies.get(1).getName(), is("Gadar"));
+        assertThat(testObject.movies.get(0).getYear(), is(2000));
+        assertThat(testObject.movies.get(1).getYear(), is(2001));
+        assertThat(testObject.movies.get(0).getRating(), is(7.5f));
+        assertThat(testObject.movies.get(1).getRating(), is(9.5f));
+        assertThat(testObject.movies.get(0).getDirector(), is("Some One"));
+        assertThat(testObject.movies.get(1).getDirector(), is("Some One again"));
+    }
+
+    @Test
     public void initializeOptionsTest() {
-        assertThat(testObject.options.size(), is(4));
+        assertThat(testObject.options.size(), is(5));
         assertThat(testObject.options.get(0), is("List Books"));
         assertThat(testObject.options.get(1), is("Check Out Book"));
         assertThat(testObject.options.get(2), is("Return Book"));
-        assertThat(testObject.options.get(3), is("Quit"));
+        assertThat(testObject.options.get(3), is("List Movies"));
+        assertThat(testObject.options.get(4), is("Quit"));
     }
 
     @Test
@@ -57,6 +69,7 @@ public class ExampleTest {
         String bookToCheckout = testObject.books.get(0).getName();
         assertThat(testObject.checkOutBook(bookToCheckout) , is("Thank you! Enjoy the book"));
         assertThat(testObject.books.get(0).isAvailable(), is(false));
+        assertThat(testObject.books.size(), is(2));
     }
 
     @Test
@@ -68,5 +81,6 @@ public class ExampleTest {
         assertThat(testObject.returnBook(bookToReturn), is("That is not a valid book to return."));
         assertThat(testObject.books.get(0).isAvailable(), is(true));
         assertThat(testObject.returnBook("some invalid book"), is("That is not a valid book to return."));
+        assertThat(testObject.books.size(), is(2));
     }
 }
