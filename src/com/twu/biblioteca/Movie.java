@@ -8,12 +8,14 @@ public class Movie {
     private int year;
     private float rating;
     private String director;
+    private boolean available;
 
     public Movie(String name, int year, String director, float rating) {
         this.name = name;
         this.year = year;
         this.director = director;
         this.rating = rating;
+        this.available = true;
     }
 
     public String getName() {
@@ -30,5 +32,13 @@ public class Movie {
 
     public float getRating() {
         return rating;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 }

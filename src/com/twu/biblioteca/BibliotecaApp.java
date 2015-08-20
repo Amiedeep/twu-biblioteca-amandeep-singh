@@ -37,6 +37,7 @@ public class BibliotecaApp {
         options.add("Check Out Book");
         options.add("Return Book");
         options.add("List Movies");
+        options.add("Check Out Movie");
         options.add("Quit");
         printOptions();
     }
@@ -95,6 +96,12 @@ public class BibliotecaApp {
                     printMovies();
                     break;
                 case 5:
+                    System.out.println("Enter movie name to checkout");
+                    String movieToCheckOut= getMovieNameToCheckout();
+                    System.out.println(checkOutMovie(movieToCheckOut));
+                    printOptions();
+                    break;
+                case 6:
                     break outer;
                 default:
                     System.out.println("Please Enter Valid Option!");
@@ -125,7 +132,22 @@ public class BibliotecaApp {
         return "That book is not available.";
     }
 
+    public String checkOutMovie(String movieToCheckOut) {
+        for(Movie movie : movies) {
+            if(movie.getName().equals(movieToCheckOut) && movie.isAvailable()) {
+                movie.setAvailable(false);
+                return "Thank you! Enjoy the movie";
+            }
+        }
+        return "That movie is not available.";
+    }
+
     private String getBookNameToCheckout() {
+
+        return sc.next();
+    }
+
+    private String getMovieNameToCheckout() {
 
         return sc.next();
     }

@@ -54,12 +54,13 @@ public class ExampleTest {
 
     @Test
     public void initializeOptionsTest() {
-        assertThat(testObject.options.size(), is(5));
+        assertThat(testObject.options.size(), is(6));
         assertThat(testObject.options.get(0), is("List Books"));
         assertThat(testObject.options.get(1), is("Check Out Book"));
         assertThat(testObject.options.get(2), is("Return Book"));
         assertThat(testObject.options.get(3), is("List Movies"));
-        assertThat(testObject.options.get(4), is("Quit"));
+        assertThat(testObject.options.get(4), is("Check Out Movie"));
+        assertThat(testObject.options.get(5), is("Quit"));
     }
 
     @Test
@@ -70,6 +71,16 @@ public class ExampleTest {
         assertThat(testObject.checkOutBook(bookToCheckout) , is("Thank you! Enjoy the book"));
         assertThat(testObject.books.get(0).isAvailable(), is(false));
         assertThat(testObject.books.size(), is(2));
+    }
+
+    @Test
+    public void checkOutMovieTest() {
+        assertThat(testObject.checkOutMovie("Some invalid movie") , is("That movie is not available."));
+        assertThat(testObject.movies.get(0).isAvailable(), is(true));
+        String movieToCheckout = testObject.movies.get(0).getName();
+        assertThat(testObject.checkOutMovie(movieToCheckout) , is("Thank you! Enjoy the movie"));
+        assertThat(testObject.movies.get(0).isAvailable(), is(false));
+        assertThat(testObject.movies.size(), is(2));
     }
 
     @Test
