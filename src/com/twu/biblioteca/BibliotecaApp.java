@@ -8,15 +8,51 @@ public class BibliotecaApp {
     String welcomeMessage;
     public ArrayList<Book> books;
     public ArrayList<String> options;
-    private Scanner sc;
+    private Scanner scanner;
     public ArrayList<Movie> movies;
+    public ArrayList<User> users;
+    public User loggedInUser;
 
     public BibliotecaApp() {
         this.welcomeMessage = "Welcome to Bibliotecs App!";
+        scanner = new Scanner(System.in);
         printWelcomeMessage();
+        initialiseAppData();
+    }
+
+    public void loginUser() {
+        System.out.println("Enter your library number");
+        String libraryNumber = scanner.next();
+        System.out.println("Enter password");
+        String password = scanner.next();
+        if(validateUser(libraryNumber, password)) {
+            initialiseOptions();
+            getAndPrintUserSelectedOption();
+        }
+        else
+            System.out.println("Oops invalid credentials!");
+    }
+
+    public boolean validateUser(String libraryNumber, String password) {
+        for(User user : users) {
+            if(user.getLibraryNumber().equals(libraryNumber) && user.getPassword().equals(password)) {
+                loggedInUser = user;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void initialiseAppData() {
         initialiseBooks();
         initialiseMovies();
-        initialiseOptions();
+        initialiseUsers();
+    }
+
+    public void initialiseUsers() {
+        users = new ArrayList<User>();
+        users.add(new User("111-2222", "abcd"));
+        users.add(new User("222-3333", "abcd"));
     }
 
     public void initialiseBooks() {
@@ -44,7 +80,7 @@ public class BibliotecaApp {
 
     public static void main(String[] args) {
         BibliotecaApp bibliotecaApp = new BibliotecaApp();
-        bibliotecaApp.getAndPrintUserSelectedOption();
+        bibliotecaApp.loginUser();
     }
 
     public String getWelcomeMessage() {
@@ -72,10 +108,8 @@ public class BibliotecaApp {
     }
 
     private void getAndPrintUserSelectedOption() {
-
-        sc = new Scanner(System.in);
         outer: while(true) {
-            int optionNumber = sc.nextInt();
+            int optionNumber = scanner.nextInt();
             switch(optionNumber) {
                 case 1:
                     printBooks();
@@ -97,7 +131,7 @@ public class BibliotecaApp {
                     break;
                 case 5:
                     System.out.println("Enter movie name to checkout");
-                    String movieToCheckOut= getMovieNameToCheckout();
+                    String movieToCheckOut = getMovieNameToCheckout();
                     System.out.println(checkOutMovie(movieToCheckOut));
                     printOptions();
                     break;
@@ -115,6 +149,7 @@ public class BibliotecaApp {
     public String returnBook(String bookNameToreturn) {
         for(Book book : books) {
             if(book.getName().equals(bookNameToreturn) && !book.isAvailable()) {
+                loggedInUser.returnCheckedOutBook(book);
                 book.setAvailable(true);
                 return "Thank you for returning the book.";
             }
@@ -125,6 +160,7 @@ public class BibliotecaApp {
     public String checkOutBook(String bookToCheckOut) {
         for(Book book : books) {
             if(book.getName().equals(bookToCheckOut) && book.isAvailable()) {
+                loggedInUser.addCheckedOutBook(book);
                 book.setAvailable(false);
                 return "Thank you! Enjoy the book";
             }
@@ -144,12 +180,12 @@ public class BibliotecaApp {
 
     private String getBookNameToCheckout() {
 
-        return sc.next();
+        return scanner.next();
     }
 
     private String getMovieNameToCheckout() {
 
-        return sc.next();
+        return scanner.next();
     }
 
     private void printOptions() {
@@ -162,6 +198,6 @@ public class BibliotecaApp {
     }
 
     private String getBookNameToReturn() {
-        return sc.next();
+        return scanner.next();
     }
 }

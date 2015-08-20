@@ -19,16 +19,39 @@ public class ExampleTest {
     @BeforeClass
     public static void setUp() {
         testObject = new BibliotecaApp();
+        testObject.loggedInUser = new User("444-4555", "abcd");
     }
 
     @Test
     public void getWelcomeMessageTest() {
+        assertThat(testObject.validateUser("111-2222", "abcd"), is(true));
+        assertThat(testObject.validateUser("invalid user", "abcd"), is(false));
+        assertThat(testObject.validateUser("111-2222", "invalid password"), is(false));
+    }
+
+    @Test
+    public void initialiseUsersTest() {
+        assertThat(testObject.users.size(), is(2));
+        assertThat(testObject.users.get(0).getLibraryNumber(), is("111-2222"));
+        assertThat(testObject.users.get(1).getLibraryNumber(), is("222-3333"));
+        assertThat(testObject.users.get(0).getPassword(), is("abcd"));
+        assertThat(testObject.users.get(1).getPassword(), is("abcd"));
+    }
+
+    @Test
+    public void validateUserTest() {
         assertThat(testObject.getWelcomeMessage(), is("Welcome to Bibliotecs App!"));
     }
 
     @Test
+    public void initialiseAppDataTest() {
+        assertThat(testObject.books.size(), is(2));
+        assertThat(testObject.movies.size(), is(2));
+        assertThat(testObject.users.size(), is(2));
+    }
+
+    @Test
     public void initializeBooksTest() {
-        testObject.initialiseBooks();
         assertThat(testObject.books.size(), is(2));
         assertThat(testObject.books.get(0).getAuthor(), is("kathy sierra"));
         assertThat(testObject.books.get(1).getAuthor(), is("Bert Bates"));
@@ -40,7 +63,6 @@ public class ExampleTest {
 
     @Test
     public void initializeMoviesTest() {
-        testObject.initialiseMovies();
         assertThat(testObject.movies.size(), is(2));
         assertThat(testObject.movies.get(0).getName(), is("Sholay"));
         assertThat(testObject.movies.get(1).getName(), is("Gadar"));
@@ -54,6 +76,7 @@ public class ExampleTest {
 
     @Test
     public void initializeOptionsTest() {
+        testObject.initialiseOptions();
         assertThat(testObject.options.size(), is(6));
         assertThat(testObject.options.get(0), is("List Books"));
         assertThat(testObject.options.get(1), is("Check Out Book"));
@@ -75,10 +98,10 @@ public class ExampleTest {
 
     @Test
     public void checkOutMovieTest() {
-        assertThat(testObject.checkOutMovie("Some invalid movie") , is("That movie is not available."));
+        assertThat(testObject.checkOutMovie("Some invalid movie"), is("That movie is not available."));
         assertThat(testObject.movies.get(0).isAvailable(), is(true));
         String movieToCheckout = testObject.movies.get(0).getName();
-        assertThat(testObject.checkOutMovie(movieToCheckout) , is("Thank you! Enjoy the movie"));
+        assertThat(testObject.checkOutMovie(movieToCheckout), is("Thank you! Enjoy the movie"));
         assertThat(testObject.movies.get(0).isAvailable(), is(false));
         assertThat(testObject.movies.size(), is(2));
     }
