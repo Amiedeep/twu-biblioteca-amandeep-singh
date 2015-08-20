@@ -51,8 +51,8 @@ public class BibliotecaApp {
 
     public void initialiseUsers() {
         users = new ArrayList<User>();
-        users.add(new User("111-2222", "abcd"));
-        users.add(new User("222-3333", "abcd"));
+        users.add(new User("111-2222", "abcd", "Aman" , "amie@somewhere.com", 9888765437L));
+        users.add(new User("222-3333", "abcd", "Ajit", "ajit@somewhere.com", 8466574884L));
     }
 
     public void initialiseBooks() {
@@ -74,6 +74,7 @@ public class BibliotecaApp {
         options.add("Return Book");
         options.add("List Movies");
         options.add("Check Out Movie");
+        options.add("Profile of logged in user");
         options.add("Quit");
         printOptions();
     }
@@ -136,6 +137,9 @@ public class BibliotecaApp {
                     printOptions();
                     break;
                 case 6:
+                    loggedInUser.seeLoggedInUser();
+                    break;
+                case 7:
                     break outer;
                 default:
                     System.out.println("Please Enter Valid Option!");

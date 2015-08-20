@@ -19,7 +19,7 @@ public class ExampleTest {
     @BeforeClass
     public static void setUp() {
         testObject = new BibliotecaApp();
-        testObject.loggedInUser = new User("444-4555", "abcd");
+        testObject.loggedInUser = new User("444-4555", "abcd", "Aman" , "amie@somewhere.com", 9888765437L);
     }
 
     @Test
@@ -77,13 +77,14 @@ public class ExampleTest {
     @Test
     public void initializeOptionsTest() {
         testObject.initialiseOptions();
-        assertThat(testObject.options.size(), is(6));
+        assertThat(testObject.options.size(), is(7));
         assertThat(testObject.options.get(0), is("List Books"));
         assertThat(testObject.options.get(1), is("Check Out Book"));
         assertThat(testObject.options.get(2), is("Return Book"));
         assertThat(testObject.options.get(3), is("List Movies"));
         assertThat(testObject.options.get(4), is("Check Out Movie"));
-        assertThat(testObject.options.get(5), is("Quit"));
+        assertThat(testObject.options.get(5), is("Profile of logged in user"));
+        assertThat(testObject.options.get(6), is("Quit"));
     }
 
     @Test
